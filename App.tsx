@@ -1,26 +1,49 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Trophy, Settings, Info, Share2, Maximize2, Flag, Gamepad2, Zap, Flame } from 'lucide-react';
 
 // --- Sub-Components ---
 
 const AdBanner: React.FC<{ slot?: string }> = ({ slot }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    try {
-      // @ts-ignore
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-      console.warn("AdSense push failed - likely blocked by browser or script not loaded.", e);
-    }
-  }, []);
+    let attempts = 0;
+    const maxAttempts = 20;
+
+    const tryPushAd = () => {
+      try {
+        if (containerRef.current && containerRef.current.clientWidth > 0) {
+          // @ts-ignore
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+          return true;
+        }
+      } catch (e) {
+        console.warn("AdSense push internal error:", e);
+      }
+      return false;
+    };
+
+    const intervalId = setInterval(() => {
+      attempts++;
+      if (tryPushAd() || attempts >= maxAttempts) {
+        clearInterval(intervalId);
+      }
+    }, 250); // 每 250ms 检查一次容器宽度
+
+    return () => clearInterval(intervalId);
+  }, [slot]);
 
   return (
-    <div className="w-full flex justify-center my-4 overflow-hidden min-h-[90px] bg-slate-900/20 border border-slate-800/50 rounded-lg">
+    <div 
+      ref={containerRef}
+      className="w-full flex justify-center my-4 overflow-hidden min-h-[90px] bg-slate-900/20 border border-slate-800/50 rounded-lg"
+    >
       <ins 
         className="adsbygoogle"
-        style={{ display: 'block' }}
+        style={{ display: 'block', width: '100%' }}
         data-ad-client="ca-pub-9774042341049510"
-        data-ad-slot={slot || "default-slot"}
+        data-ad-slot={slot || "7890123456"}
         data-ad-format="auto"
         data-full-width-responsive="true"
       />
@@ -101,17 +124,14 @@ const App: React.FC = () => {
       <Header />
       
       <main className="flex-grow">
-        {/* Top Ad */}
         <div className="max-w-7xl mx-auto px-4">
           <AdBanner slot="7890123456" />
         </div>
 
-        {/* Game Area */}
         <section className="bg-slate-950">
           <GameFrame />
         </section>
 
-        {/* Action Bar */}
         <div className="bg-slate-900/50 backdrop-blur-xl py-4 px-6 border-y border-slate-800 flex flex-wrap gap-4 items-center justify-between shadow-inner">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2 bg-slate-950/80 px-4 py-2 rounded-full border border-slate-800">
@@ -129,7 +149,6 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        {/* SEO Content Section */}
         <section className="max-w-6xl mx-auto py-16 px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             <div className="lg:col-span-8 space-y-8 text-slate-300">
@@ -212,7 +231,6 @@ const App: React.FC = () => {
           </div>
         </section>
 
-        {/* Bottom Ad */}
         <div className="max-w-7xl mx-auto px-4 mb-12">
           <AdBanner slot="6543210987" />
         </div>
