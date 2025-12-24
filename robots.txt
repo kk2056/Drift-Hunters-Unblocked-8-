@@ -1,4 +1,5 @@
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /private/
 
-Sitemap: https://drift2025.site/sitemap.xml
+Sitemap: https://drifthuntersunblocked.com/sitemap.xml
