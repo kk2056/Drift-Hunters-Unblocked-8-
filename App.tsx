@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useRef } from 'react';
 import { Trophy, Settings, Info, Share2, Maximize2, Flag, Gamepad2, Zap, Flame } from 'lucide-react';
 
@@ -118,10 +117,9 @@ const GameFrame: React.FC = () => {
 };
 
 const App: React.FC = () => {
-  const handleDocumentFullscreen = () => {
-    const element = document.documentElement;
-    if (element.requestFullscreen) {
-      element.requestFullscreen();
+  const handleFullscreen = () => {
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen();
     }
   };
 
@@ -135,24 +133,24 @@ const App: React.FC = () => {
           <AdBanner slot="7890123456" />
         </div>
 
-        {/* --- Mobile & Fullscreen Enhancements --- */}
-        <div className="max-w-5xl mx-auto px-6 py-4">
-          {/* Mobile Tip */}
-          <div className="text-center text-white bg-purple-800 p-4 rounded-lg mb-6 max-w-md mx-auto shadow-lg border border-purple-600">
-            <p className="text-sm font-bold">Tip: Rotate to landscape mode for better mobile experience! Perfect on phone or Chromebook.</p>
+        {/* --- UX Enhancements Section --- */}
+        <div className="max-w-5xl mx-auto px-6 pt-8 pb-4">
+          {/* 1. Mobile Experience Tip */}
+          <div className="text-center text-white bg-purple-800 p-4 rounded-lg mb-6 max-w-md mx-auto shadow-lg border border-purple-700 font-bold">
+            Tip: Rotate to landscape for better mobile experience! Perfect on phone or Chromebook.
           </div>
 
-          {/* Big Fullscreen Button */}
+          {/* 2. Optimized Fullscreen Button */}
           <button 
-            onClick={handleDocumentFullscreen} 
-            className="block mx-auto bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-8 rounded-xl text-xl mb-6 shadow-[0_10px_30px_-10px_rgba(22,163,74,0.5)] transition-all hover:scale-105 active:scale-95 border-b-4 border-green-800"
+            onClick={handleFullscreen} 
+            className="block mx-auto bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-8 rounded-xl text-xl mb-6 shadow-xl transition-all active:scale-95 hover:scale-105 border-b-4 border-green-800 uppercase tracking-tight italic"
           >
             Play Full Screen (Press F - Ultimate Experience!)
           </button>
 
-          {/* Fullscreen Tip Text */}
-          <div className="text-center text-white bg-blue-800 p-4 rounded-lg mb-6 max-w-lg mx-auto shadow-md border border-blue-700">
-            <p className="text-sm font-medium italic">Press F for fullscreen - No lag, full immersion on any device!</p>
+          {/* 3. Fullscreen Instruction Text */}
+          <div className="text-center text-white bg-blue-800 p-4 rounded-lg mb-6 max-w-lg mx-auto shadow-md border border-blue-700 font-medium">
+            Press F for fullscreen - No lag, full immersion on any device!
           </div>
         </div>
 
@@ -179,16 +177,15 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        {/* Extra Bottom Ad Slot for RPM boost */}
+        {/* 4. Extra Bottom Ad Slot (RPM Boost) */}
         <div className="ad-bottom mt-8 text-center max-w-7xl mx-auto px-4">
-          <AdBanner slot="1234567890" className="w-full flex justify-center my-4 overflow-hidden min-h-[90px] bg-slate-900/40 border border-slate-700 rounded-xl" />
+          <AdBanner slot="1234567890" className="w-full flex justify-center my-4 overflow-hidden min-h-[90px] bg-slate-900/40 border border-slate-700 rounded-xl shadow-lg" />
         </div>
 
         {/* --- Strategy & Internal Links Area --- */}
         <section className="max-w-6xl mx-auto py-8 px-6">
-          
           {/* Strategy Content Block */}
-          <div className="strategy mt-8 text-gray-300 p-4 bg-gray-800 rounded-lg shadow-md border border-gray-700">
+          <div className="strategy mt-8 text-gray-300 p-6 bg-gray-800 rounded-lg shadow-md border border-gray-700">
             <h2 className="text-xl font-bold text-white mb-3 uppercase tracking-tighter italic">Drift Hunters Unblocked 2025 Strategy Guide</h2>
             <p className="mb-4">
               Do you love the sound of screeching tires? <strong>Drift Hunters Unblocked 2025</strong> is the most realistic 3D drifting simulator available on the web. It features legendary cars like the Toyota AE86, Nissan Silvia S15, and the Supra. The core of the game isn't just drifting—it's tuning. You can adjust turbo pressure, brake balance, and front camber to perfect your ride.
@@ -226,7 +223,18 @@ const App: React.FC = () => {
           </div>
         </section>
 
-        {/* Additional Ad Slot */}
+        {/* Existing Content & Ads */}
+        <section className="max-w-6xl mx-auto py-8 px-6 space-y-8">
+          <div className="flex items-center gap-3">
+            <Info className="text-red-500 w-8 h-8" />
+            <h2 className="text-3xl font-black text-white uppercase italic tracking-tighter">About Drift Hunt</h2>
+          </div>
+          <p className="text-slate-400 leading-relaxed">
+            Experience the definitive version of Drift Hunters Unblocked. Our 2025 optimized delivery system ensures you can access this drifting simulator from any network.
+          </p>
+          <AdBanner slot="9988776655" />
+        </section>
+
         <div className="max-w-7xl mx-auto px-4 mb-12">
           <AdBanner slot="6543210987" />
         </div>
